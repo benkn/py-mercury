@@ -1,3 +1,10 @@
+# User specific files
 .env
+accounts.py
+
 
 venv/
+.pytest_cache/
+
+# Editor
+.vscode/

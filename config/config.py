@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+import logging
 
 load_dotenv()
 
@@ -19,4 +20,5 @@ Config = {
         "secret": os.getenv("PLAID_SECRET"),
         "env": os.getenv("PLAID_ENV"),
     },
+    "log_level": logging.DEBUG,
 }
