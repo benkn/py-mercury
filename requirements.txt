@@ -1,0 +1,6 @@
+Flask==3.0.0
+plaid_python==14.0.0
+python-dotenv==1.0.0
+pytest==7.4.4
+itsdangerous==2.1.2
+werkzeug==3.0.1
