@@ -16,7 +16,7 @@ for account in accounts:
     transactions = plaidClient.get_transactions(
         account, Config["start_date"], Config["end_date"]
     )
-    allTransactions.append(transactions)
+    allTransactions.extend(transactions)
     logger.info("Total transactions found so far: %d", len(allTransactions))
 
 # logger.debug("debug message")

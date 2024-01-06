@@ -3,7 +3,7 @@ run:
 
 init: ## initializes the project
 	@./.bin/init.sh
-	source ./venv/bin/activate
+	@echo "Now run source ./.venv/bin/activate"
 
 test: ## runs the unit tests
 	@echo "Running tests"

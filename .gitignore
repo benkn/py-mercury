@@ -4,6 +4,7 @@ accounts.py
 
 
 venv/
+.venv/
 .pytest_cache/
 
 # Editor
