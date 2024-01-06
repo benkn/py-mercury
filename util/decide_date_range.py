@@ -2,8 +2,8 @@ import datetime
 
 
 class DateRange:
-    start_date = ""
-    end_date = ""
+    start_date = datetime.datetime.today()
+    end_date = datetime.datetime.today()
 
 
 def decide_date_range(date):
@@ -15,18 +15,29 @@ def decide_date_range(date):
 
     # Get last month if the date isn't far enough into this month
     if date.day <= 4:
-        end = date.replace(day=1) - datetime.timedelta(days=1)
-        start = date.replace(day=1) - datetime.timedelta(days=end.day)
+        date_range.end_date = date.replace(day=1) - datetime.timedelta(days=1)
+        date_range.start_date = date.replace(day=1) - datetime.timedelta(
+            days=date_range.end_date.day
+        )
 
-        date_range.start_date = start.strftime("%Y-%m-%d")
-        date_range.end_date = end.strftime("%Y-%m-%d")
+        # date_range.start_date = start
+        # date_range.end_date = end.strftime("%Y-%m-%d")
     else:
         # Else, get the range for this month
-        date_range.start_date = date.replace(day=1).strftime("%Y-%m-%d")
-        date_range.end_date = date.strftime("%Y-%m-%d")
+        date_range.start_date = date.replace(day=1)  # .strftime("%Y-%m-%d")
+        date_range.end_date = date
+
+    # Ensure the type of dates are Date and not DateTime
+    date_range.start_date = datetime.date(
+        date_range.start_date.year,
+        date_range.start_date.month,
+        date_range.start_date.day,
+    )
+    date_range.end_date = datetime.date(
+        date_range.end_date.year, date_range.end_date.month, date_range.end_date.day
+    )
 
     print("start", date_range.start_date)
     print("end", date_range.end_date)
 
     return date_range
-
