@@ -18,9 +18,9 @@ def to_columns(transaction_list):
         for t in transaction_list:
             rows.append(
                 [
-                    t["date"],
+                    t["date"].strftime("YYYY-MM-DD"),  # format the date
                     t["name"],
-                    t["amount"],
+                    str(t["amount"]),  # Make the amount a string
                     "",
                     t["my_category"],
                     t["my_sub_category"],
@@ -33,6 +33,6 @@ def to_columns(transaction_list):
     return rows
 
 
-def printRows(rows):
+def print_rows(rows):
     for row in rows:
-        print(row)
+        print(",".join(row))

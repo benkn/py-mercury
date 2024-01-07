@@ -1,4 +1,4 @@
-# Dictionary of replacmenets for categories
+# Dictionary of replacements for categories
 # If the transaction's category is this, then replace it with that:
 # {
 #    "ORIGINAL_CATEGORY": 'Updated Category'
@@ -9,7 +9,7 @@ CategoryLookups = {
     "LOAN_PAYMENTS_CREDIT_CARD_PAYMENT": "Credit Card Payment",
 }
 
-# Dictionary of replacmenets for sub-categories
+# Dictionary of replacements for sub-categories
 # If the transaction's sub-category is this, then replace it with that:
 # {
 #    "ORIGINAL_SUB_CATEGORY": 'Updated Sub-Category'

@@ -1,4 +1,4 @@
-skipWords = set(["AND"])
+skipWords = set(["AND", ""])
 
 
 def readable(categoryName):
