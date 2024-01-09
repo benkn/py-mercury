@@ -16,6 +16,7 @@ Config = {
     "end_date": dateRange.end_date,
     "max_value_to_include": 100_000,
     "spreadsheet_tab_name": "This_Month",
+    "spreadsheet_index": 2,
     "spreadsheet_id": os.getenv("SHEETS_SPREADSHEET_ID"),
     "google_credentials": {
         "private_key": os.getenv("SHEETS_PRIVATE_KEY"),

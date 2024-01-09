@@ -5,6 +5,7 @@ class GoogleSheetsClient:
     def __init__(self, config):
         self.gc = gspread.service_account_from_dict(config["google_credentials"])
         self.sh = self.gc.open_by_key(config["spreadsheet_id"])
+        self.sheet_index = config["spreadsheet_index"]
 
     def find_removed_transactions(self, transactions, existing_tx_ids):
         # Create a set of ids for transactions
@@ -23,7 +24,7 @@ class GoogleSheetsClient:
 
     def filter_existing_transactions(self, transactions):
         """The function filters out existing transactions from a given array of transactions based on the data in a Google Sheets spreadsheet."""
-        worksheet = self.sh.get_worksheet(2)
+        worksheet = self.sh.get_worksheet(self.sheet_index)
         # print("Using worksheet")
         # print(worksheet)
         # retrieve existing records as a list of dictionaries
