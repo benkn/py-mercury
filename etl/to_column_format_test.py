@@ -1,4 +1,4 @@
-from etl.toColumnFormat import headerRow, to_columns
+from etl.to_column_format import headerRow, to_columns
 
 
 class TestToColumnFormat:

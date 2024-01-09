@@ -9,6 +9,9 @@ test: ## runs the unit tests
 	@echo "Running tests"
 	python3 -m pytest
 
+lint: ## reviews the code for linting errors
+	ruff check .
+
 help: ## Show this help message.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-10s$(NO_COLOR) %s\n", $$1, $$2}'
 

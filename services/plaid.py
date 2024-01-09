@@ -51,11 +51,11 @@ class PlaidClient:
 
             filteredTransactions = list(
                 filter(
-                    # Filter transactions with amounts outside of config requirements
+                    # Filtear transactions with amounts outside of config requirements
                     lambda t: t["amount"] <= self.config["max_value_to_include"]
                     or t["amount"] >= 1000,
                     # Filter pending transactions
-                    filter(lambda t: t["pending"] == False, transactions),
+                    filter(lambda t: not t["pending"], transactions),
                 )
             )
 

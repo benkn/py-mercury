@@ -49,15 +49,17 @@ def matches_filter(transaction, filter):
     t_name = transaction["name"]
     starts_with = (
         t_name.upper().startswith(filter.starts_with.upper())
-        if filter.starts_with != None
+        if filter.starts_with is not None
         else True
     )
     includes = (
-        filter.includes.upper() in t_name.upper() if filter.includes != None else True
+        filter.includes.upper() in t_name.upper()
+        if filter.includes is not None
+        else True
     )
     ends_with = (
         t_name.upper().endswith(filter.ends_with.upper())
-        if filter.ends_with != None
+        if filter.ends_with is not None
         else True
     )
     return starts_with and includes and ends_with

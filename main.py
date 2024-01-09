@@ -1,8 +1,8 @@
 from config.config import Config
 from config.accounts import accounts
 from etl.decorate import decorate_transactions
-from etl.toColumnFormat import to_columns
-from services.googleSheets import GoogleSheetsClient
+from etl.to_column_format import to_columns
+from services.google_sheets import GoogleSheetsClient
 from services.plaid import PlaidClient
 
 from util.logger import get_logger
