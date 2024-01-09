@@ -1,7 +1,8 @@
 from config.config import Config
 from config.accounts import accounts
-from etl.decorate import decorateTransactions
-from etl.toColumnFormat import print_rows, to_columns
+from etl.decorate import decorate_transactions
+from etl.toColumnFormat import to_columns
+from services.googleSheets import GoogleSheetsClient
 from services.plaid import PlaidClient
 
 from util.logger import get_logger
@@ -23,14 +24,22 @@ for account in accounts:
     allTransactions.extend(transactions)
     logger.info("Total transactions found so far: %d", len(allTransactions))
 
-logger.info("Decorating transactions")
-decorateTransactions(allTransactions)
+google_sheets_client = GoogleSheetsClient(Config)
 
-rows = to_columns(allTransactions)
-print_rows(rows)
+logger.info("Removing existing transactions")
+new_transactions = google_sheets_client.filter_existing_transactions(allTransactions)
 
-# logger.debug("debug message")
-# logger.info("info message")
-# logger.warning("warning message")
-# logger.error("error message")
-# logger.critical("critical message")
+if len(new_transactions) > 0:
+    logger.info(
+        "Found %d new transactions. Decorating them and turning them into rows.",
+        len(new_transactions),
+    )
+    decorate_transactions(new_transactions)
+
+    rows = to_columns(new_transactions)
+    logger.info("Writing transactions to the budget sheet")
+    google_sheets_client.append_to_sheet(rows)
+else:
+    logger.info("No new transactions")
+
+logger.info("All done!")
