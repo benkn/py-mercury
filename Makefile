@@ -1,13 +1,21 @@
-run:
-	@python3 main.py
+VENV := .venv
+VENV_PYTHON := $(VENV)/bin/python
 
-init: ## initializes the project
-	@./.bin/init.sh
-	@echo "Now run source ./.venv/bin/activate"
+run:
+	$(VENV_PYTHON) main.py
+
+$(VENV): # Creates the virtual environment if it is not made already
+	@echo "$(GREEN)Creating virtual environment$(NO_COLOR)"
+	python3 -m venv $(VENV)
+
+## TODO Add tasks for creating template files for first time initi
+init: $(VENV) ## initializes the project
+	@echo "$(GREEN)Installing dependencies$(NO_COLOR)"
+	$(VENV_PYTHON) -m pip install -r requirements.txt
 
 test: ## runs the unit tests
 	@echo "Running tests"
-	python3 -m pytest
+	$(VENV_PYTHON) -m pytest
 
 lint: ## reviews the code for linting errors
 	ruff check .
