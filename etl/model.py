@@ -16,7 +16,7 @@ class Transformation:
     of a value results in no change to the transaction.
     """
 
-    def __init__(self, my_category, my_sub_category, name):
+    def __init__(self, my_category = None, my_sub_category = None, name = None):
         self.my_category = my_category
         self.my_sub_category = my_sub_category
         self.name = name

@@ -6,7 +6,7 @@ run:
 
 $(VENV): # Creates the virtual environment if it is not made already
 	@echo "$(GREEN)Creating virtual environment$(NO_COLOR)"
-	python3 -m venv $(VENV)
+	@python3 -m venv $(VENV)
 
 ## TODO Add tasks for creating template files for first time initi
 init: $(VENV) ## initializes the project
@@ -14,11 +14,12 @@ init: $(VENV) ## initializes the project
 	$(VENV_PYTHON) -m pip install -r requirements.txt
 
 test: ## runs the unit tests
-	@echo "Running tests"
-	$(VENV_PYTHON) -m pytest
+	@$(VENV_PYTHON) -m pytest
 
 lint: ## reviews the code for linting errors
-	ruff check .
+	@echo "💅 $(MAGENTA)Linting files$(NO_COLOR)"
+	@ruff check .
+	@echo "😍 $(YELLOW)Beautiful files$(NO_COLOR)"
 
 help: ## Show this help message.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-10s$(NO_COLOR) %s\n", $$1, $$2}'

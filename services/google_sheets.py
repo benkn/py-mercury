@@ -25,8 +25,6 @@ class GoogleSheetsClient:
     def filter_existing_transactions(self, transactions):
         """The function filters out existing transactions from a given array of transactions based on the data in a Google Sheets spreadsheet."""
         worksheet = self.sh.get_worksheet(self.sheet_index)
-        # print("Using worksheet")
-        # print(worksheet)
         # retrieve existing records as a list of dictionaries
         existing_txs = worksheet.get_all_records()
         existing_tx_ids = set(
@@ -35,9 +33,14 @@ class GoogleSheetsClient:
 
         self.find_removed_transactions(transactions, existing_tx_ids)
 
-        return list(filter(lambda tx: tx.get("transaction_id"), transactions))
+        return list(
+            # Filter to remove transactions already present in the worksheet
+            filter(
+                lambda tx: tx.get("transaction_id") not in existing_tx_ids, transactions
+            )
+        )
 
     def append_to_sheet(self, rows):
         """The function writes the given rows to the sheet"""
-        worksheet = self.sh.get_worksheet(2)
+        worksheet = self.sh.get_worksheet(self.sheet_index)
         worksheet.append_rows(rows)
