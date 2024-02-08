@@ -15,18 +15,18 @@ def to_columns(transaction_list):
     rows = list()
 
     if len(transaction_list) > 0:
-        for t in transaction_list:
+        for tx in transaction_list:
             rows.append(
                 [
-                    str(t["date"]),
-                    t["name"],
-                    t["amount"],
+                    str(tx["date"]),
+                    tx["name"],
+                    tx["amount"],
                     "",
-                    t["my_category"],
-                    t["my_sub_category"],
-                    t["account_owner"],
-                    t["my_raw_category"],
-                    t["transaction_id"],
+                    tx["my_category"],
+                    tx["my_sub_category"],
+                    tx["account_owner"],
+                    tx["my_raw_category"],
+                    tx["transaction_id"],
                 ]
             )
 
