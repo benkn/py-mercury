@@ -15,7 +15,7 @@ class GoogleSheetsClient:
 
         # Any ID found in the existing IDs but not in the transaction IDs should be removed
         tx_ids_to_remove = set(
-            filter(lambda tx_id: tx_id not in transaction_ids, existing_tx_ids)
+            filter(lambda tx_id: tx_id not in transaction_ids and tx_id > '', existing_tx_ids)
         )
 
         if len(tx_ids_to_remove) > 0:
