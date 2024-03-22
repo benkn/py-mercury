@@ -2,6 +2,7 @@
 .env
 accounts.py
 custom_etls.py
+sheets_creds.json
 
 
 venv/

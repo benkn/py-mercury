@@ -14,7 +14,7 @@ To work with some banks, like Chase, Bank of America, and CitiBank, you will nee
 
 ### 2. Configure a Google Sheets Service Account.
 
-I followed [this guide](https://javascript.plainenglish.io/how-to-use-node-js-with-google-sheets-c256c26e10fc) on how to get the service account from Google and how to read/write to a Sheet. A real kicker is the sheet has to be shared to the service account as an Editor. **You will need the service account name and certificate for Mercury's [.env.tmpl](./.env.tmpl).**
+I followed [this guide](https://javascript.plainenglish.io/how-to-use-node-js-with-google-sheets-c256c26e10fc) on how to get the service account from Google and how to read/write to a Sheet. A real kicker is the sheet has to be shared to the service account as an Editor. **You will need to download the key for the service account and save it to this project named "sheets_creds.json".**
 
 The [structure of the rows](./etl/to_column_format.py) uses these columns:
 

@@ -4,7 +4,7 @@ from util.logger import get_logger
 
 class GoogleSheetsClient:
     def __init__(self, config):
-        self.gc = gspread.service_account_from_dict(config["google_credentials"])
+        self.gc = gspread.service_account(config["google_credentials"])
         self.sh = self.gc.open_by_key(config["spreadsheet_id"])
         self.sheet_index = config["spreadsheet_index"]
         self.logger = get_logger("GoogleSheetsClient", config["log_level"])

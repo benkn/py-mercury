@@ -16,14 +16,9 @@ Config = {
     "end_date": dateRange.end_date,
     "max_value_to_include": 100_000,
     "spreadsheet_tab_name": "This_Month",
-    "spreadsheet_index": 1, # a zero-based index, meaning the first tab is 0
+    "spreadsheet_index": 1,  # a zero-based index, meaning the first tab is 0
     "spreadsheet_id": os.getenv("SHEETS_SPREADSHEET_ID"),
-    "google_credentials": {
-        "private_key": os.getenv("SHEETS_PRIVATE_KEY"),
-        "client_email": os.getenv("SHEETS_SVC_ACCOUNT"),
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-    },
+    "google_credentials": os.getenv("SHEETS_CREDS_FILE"),
     "plaid": {
         "client_id": os.getenv("PLAID_CLIENT_ID"),
         "secret": os.getenv("PLAID_SECRET"),
