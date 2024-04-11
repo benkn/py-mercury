@@ -11,6 +11,7 @@ $(VENV): # Creates the virtual environment if it is not made already
 ## TODO Add tasks for creating template files for first time initi
 init: $(VENV) ## initializes the project
 	@echo "$(GREEN)Installing dependencies$(NO_COLOR)"
+	$(VENV_PYTHON) -m pip install --upgrade pip
 	$(VENV_PYTHON) -m pip install -r requirements.txt
 
 test: ## runs the unit tests

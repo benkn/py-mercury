@@ -46,4 +46,5 @@ class GoogleSheetsClient:
     def append_to_sheet(self, rows):
         """The function writes the given rows to the sheet"""
         worksheet = self.sh.get_worksheet(self.sheet_index)
-        worksheet.append_rows(rows)
+        # "USER_ENTERED" prevents prefixed apostraphes on the date
+        worksheet.append_rows(rows, "USER_ENTERED")
