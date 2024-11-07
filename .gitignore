@@ -12,3 +12,6 @@ venv/
 
 # Editor
 .vscode/
+
+# OS Junk
+.DS_Store
