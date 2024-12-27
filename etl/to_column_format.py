@@ -1,3 +1,6 @@
+from typing import List
+
+
 headerRow = [
     "Date",
     "Description",
@@ -11,7 +14,7 @@ headerRow = [
 ]
 
 
-def to_columns(transaction_list):
+def to_columns(transaction_list: dict) -> List[str]:
     rows = list()
 
     if len(transaction_list) > 0:
@@ -21,7 +24,7 @@ def to_columns(transaction_list):
                     str(tx["date"]),
                     tx["name"],
                     tx["amount"],
-                    "",
+                    tx["checked"],
                     tx["my_category"],
                     tx["my_sub_category"],
                     tx["account_owner"],

@@ -1,3 +1,4 @@
+from typing import List
 from config.config import Config
 from config.accounts import accounts
 from etl.decorate import decorate_transactions
@@ -27,7 +28,7 @@ for account in accounts:
 google_sheets_client = GoogleSheetsClient(Config)
 
 logger.info("Removing existing transactions")
-new_transactions = google_sheets_client.filter_existing_transactions(allTransactions)
+new_transactions: List[dict] = google_sheets_client.filter_existing_transactions(allTransactions)
 
 if len(new_transactions) > 0:
     logger.info(
@@ -36,7 +37,7 @@ if len(new_transactions) > 0:
     )
     decorate_transactions(new_transactions)
 
-    rows = to_columns(new_transactions)
+    rows: List[str] = to_columns(new_transactions)
     logger.info("Writing transactions to the budget sheet")
     google_sheets_client.append_to_sheet(rows)
 else:

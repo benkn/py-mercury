@@ -7,12 +7,14 @@ def decorate_transactions(transactions):
     [decorate_transaction(t) for t in transactions]
 
 
-def decorate_transaction(transaction):
+def decorate_transaction(transaction: dict):
     transaction["my_category"] = None
     transaction["my_sub_category"] = None
     transaction["my_raw_category"] = None
+    transaction["checked"] = ""
 
     if apply_custom_rule(transaction):
+        transaction["checked"] = "y"
         return  # behavior complete, end function
 
     # If the transaction has a personal finance category, then decorate accordingly
@@ -26,6 +28,7 @@ def decorate_transaction(transaction):
         # If we have an override for the category based on the detailed category given by Plaid, then set it as the category
         if CategoryLookups.get(detailed):
             transaction["my_category"] = CategoryLookups[detailed]
+            transaction["checked"] = "y"
             if SubCategoryLookups.get(detailed):
                 transaction["my_sub_category"] = SubCategoryLookups[detailed]
             else:
@@ -38,8 +41,14 @@ def decorate_transaction(transaction):
 
         elif (
             transaction["personal_finance_category"]["confidence_level"] == "VERY_HIGH"
-            or transaction["personal_finance_category"]["confidence_level"] == "HIGH"
         ):
+            transaction["my_category"] = readable(primary)
+            transaction["my_sub_category"] = readable(subcategory)
+            # if the confidence level is very high, and not General Merchandise (which can lead to false positives)
+            if transaction["my_category"] != "General Merchandise":
+                transaction["checked"] = "y"
+
+        elif transaction["personal_finance_category"]["confidence_level"] == "HIGH":
             transaction["my_category"] = readable(primary)
             transaction["my_sub_category"] = readable(subcategory)
 

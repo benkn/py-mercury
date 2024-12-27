@@ -1,3 +1,4 @@
+from typing import List
 import gspread
 from util.logger import get_logger
 
@@ -24,7 +25,7 @@ class GoogleSheetsClient:
             )
             self.logger.info(tx_ids_to_remove)
 
-    def filter_existing_transactions(self, transactions):
+    def filter_existing_transactions(self, transactions) -> List[dict]:
         """The function filters out existing transactions from a given array of transactions based on the data in a Google Sheets spreadsheet."""
         worksheet = self.sh.get_worksheet(self.sheet_index)
         # retrieve existing records as a list of dictionaries

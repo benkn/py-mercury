@@ -4,3 +4,4 @@ plaid_python==14.0.0
 python-dotenv==1.0.0
 pytest==7.4.4
 ruff==0.1.11
+typing==3.7.4.3
