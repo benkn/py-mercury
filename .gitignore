@@ -5,10 +5,12 @@ custom_etls.py
 sheets_creds.json
 .mise.toml
 
+# Python Junk
 venv/
 .venv/
 .pytest_cache/
 .ruff_cache/
+__pycache__/
 
 # Editor
 .vscode/
