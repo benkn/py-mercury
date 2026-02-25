@@ -12,6 +12,9 @@ venv/
 .ruff_cache/
 __pycache__/
 
+# Temporary files
+temp/
+
 # Editor
 .vscode/
 

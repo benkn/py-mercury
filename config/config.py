@@ -25,5 +25,7 @@ Config = {
         "env": os.getenv("PLAID_ENV"),
         "version": "2020-09-14",
     },
+    "output": os.getenv("OUTPUT", "obsidian"),  # or "sheets"
+    "obsidian_vault_path": os.getenv("OBSIDIAN_VAULT_PATH", ""),
     "log_level": logging.INFO,
 }

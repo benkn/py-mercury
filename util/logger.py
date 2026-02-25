@@ -9,7 +9,7 @@ class ColorLogFormat(logging.Formatter):
     red = "\x1b[31;20m"
     bold_red = "\x1b[31;1m"
     reset = "\x1b[0m"  # reset to default logging color
-    format = "%(asctime)s - %(name)s - %(levelname)8s - %(message)s (%(filename)s:%(lineno)d)"
+    format = "%(asctime)s - %(name)8s - %(levelname)8s - %(message)s (%(filename)s:%(lineno)d)"
 
     FORMATS = {
         logging.DEBUG: grey + format + reset,
