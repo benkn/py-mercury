@@ -6,13 +6,13 @@ This project (aka Mercury) is used to collect transactions for checking accounts
 
 To get this all working, there were some setup tasks that anyone replicating this workflow would need to follow:
 
-### 1. Sign up for Plaid.
+### 1. Sign up for Plaid
 
 I signed up and stuck with the free tier. I used the Sandbox to build the core functionality, and switched to Development for my personal use. Production has costs attributed to it, but Development allows me 100 items (bank accounts, credit cards). Since I only care about transactions and not identity, this should be good enough.
 
 To work with some banks, like Chase, Bank of America, and CitiBank, you will need production access and to complete a security questionnaire. This process takes some time to complete.
 
-### 2. Configure a Google Sheets Service Account.
+### 2. Configure a Google Sheets Service Account
 
 I followed [this guide](https://javascript.plainenglish.io/how-to-use-node-js-with-google-sheets-c256c26e10fc) on how to get the service account from Google and how to read/write to a Sheet. A real kicker is the sheet has to be shared to the service account as an Editor. **You will need to download the key for the service account and save it to this project named "sheets_creds.json".**
 
@@ -46,7 +46,7 @@ My budget app uses access tokens to get transactions from Plaid for different fi
 
 ## Configuring PyMercury
 
-Once the prerequisites are complete, you should have production credentials (key + token). Remember, the token is private! Do not commit it.
+Once the prerequisites are complete, you should have production credentials (key + token). Remember, the token is private! **Do not commit it.**
 
 1. Initialize the project by running `make init`
 2. Then run `source ./.venv/bin/activate`

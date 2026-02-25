@@ -3,7 +3,7 @@
 accounts.py
 custom_etls.py
 sheets_creds.json
-
+.mise.toml
 
 venv/
 .venv/
