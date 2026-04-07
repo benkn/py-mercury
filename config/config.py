@@ -10,8 +10,8 @@ load_dotenv()
 dateRange = decide_date_range(datetime.date.today())
 
 Config = {
-    # "start_date": datetime.date(2023, 12, 1),
-    # "end_date": datetime.date(2023, 12, 31),
+    # "start_date": datetime.date(2026, 3, 1),
+    # "end_date": datetime.date(2026, 3, 31),
     "start_date": dateRange.start_date,
     "end_date": dateRange.end_date,
     "max_value_to_include": 100_000,
