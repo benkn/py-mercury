@@ -44,8 +44,10 @@ def main(argv):
     response = plaid_client.remove_item(account)
 
     if "error" in response:
+        logger.error("Failed to remove '%s': %s", account.name, response["error"])
         return 1
 
+    logger.info("Successfully removed '%s' from Plaid.", account.name)
     return 0
 
 
