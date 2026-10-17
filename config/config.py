@@ -27,5 +27,6 @@ Config = {
     },
     "output": os.getenv("OUTPUT", "obsidian"),  # or "sheets"
     "obsidian_vault_path": os.getenv("OBSIDIAN_VAULT_PATH", ""),
+    "slack_webhook_url": os.getenv("SLACK_WEBHOOK_URL"),
     "log_level": logging.INFO,
 }

@@ -8,6 +8,7 @@ dependencies = [
     "gspread==6.0.2",
     "plaid-python==14.0.0",
     "python-dotenv==1.0.0",
+    "requests==2.32.5",
 ]
 
 [project.optional-dependencies]
