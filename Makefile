@@ -12,7 +12,7 @@ $(VENV): # Creates the virtual environment if it is not made already
 init: $(VENV) ## initializes the project
 	@echo "$(GREEN)Installing dependencies$(NO_COLOR)"
 	$(VENV_PYTHON) -m pip install --upgrade pip
-	$(VENV_PYTHON) -m pip install -r requirements.txt
+	$(VENV_PYTHON) -m pip install -e ".[dev]"
 
 test: ## runs the unit tests
 	@$(VENV_PYTHON) -m pytest

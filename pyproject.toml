@@ -1,0 +1,25 @@
+[project]
+name = "py-mercury"
+version = "0.1.0"
+description = "Collects transactions from Plaid and writes them to Google Sheets"
+requires-python = ">=3.12"
+dependencies = [
+    "google-auth==2.29.0",
+    "gspread==6.0.2",
+    "plaid-python==14.0.0",
+    "python-dotenv==1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==7.4.4",
+    "ruff==0.1.11",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["main"]
+packages = ["config", "etl", "services", "util"]

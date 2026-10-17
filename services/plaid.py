@@ -2,6 +2,7 @@ import plaid
 import json
 from plaid.api import plaid_api
 from plaid.model.transactions_get_request import TransactionsGetRequest
+from plaid.model.item_remove_request import ItemRemoveRequest
 
 from util.logger import get_logger
 
@@ -66,6 +67,18 @@ class PlaidClient:
         except plaid.ApiException as e:
             error_response = format_error(e)
             self.logger.error("Failed to get transactions: %s", error_response.__dict__)
+            return error_response
+
+    def remove_item(self, account):
+        self.logger.info("Removing item for %s", account.name)
+        try:
+            request = ItemRemoveRequest(access_token=account.access_token)
+            response = self.client.item_remove(request).to_dict()
+            self.logger.info("Removed item for %s", account.name)
+            return response
+        except plaid.ApiException as e:
+            error_response = format_error(e)
+            self.logger.error("Failed to remove item: %s", error_response)
             return error_response
 
     def pretty_print_response(self, response):
