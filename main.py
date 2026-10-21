@@ -4,7 +4,7 @@ from config.accounts import accounts
 from etl.decorate import decorate_transactions
 from etl.to_column_format import to_columns
 from services.google_sheets import GoogleSheetsClient
-from services.plaid import PlaidAuthExpiredError, PlaidClient
+from services.plaid import PlaidAuthExpiredError, PlaidClient, PlaidError
 from services.obsidian import ObsidianClient
 from services.slack import SlackClient
 
@@ -21,12 +21,22 @@ def main():
 
     # Get all transactions from all accounts
     allTransactions: List[dict] = []
+    failures: List[str] = []
 
     for account in accounts:
         logger.info(f"Reading from {account.name}")
-        transactions: List[dict] = plaidClient.get_transactions(
-            account, Config["start_date"], Config["end_date"]
-        )
+        try:
+            transactions: List[dict] = plaidClient.get_transactions(
+                account, Config["start_date"], Config["end_date"]
+            )
+        except PlaidAuthExpiredError as exc:
+            logger.error("%s Re-link it with Plaid Link update mode. (%s)", exc, exc.error)
+            failures.append(f":key: {exc}")
+            continue
+        except PlaidError as exc:
+            logger.error("%s (%s)", exc, exc.error)
+            failures.append(f":warning: {exc}")
+            continue
         for t in transactions:
             t["account_owner"] = account.name
         allTransactions.extend(transactions)
@@ -70,16 +80,17 @@ def main():
         else:
             logger.info("No new transactions")
 
+    if failures:
+        SlackClient(Config).send_alert(
+            "Mercury skipped some accounts:\n" + "\n".join(failures)
+        )
+
     logger.info("All done!")
 
 
 if __name__ == "__main__":
     try:
         main()
-    except PlaidAuthExpiredError as exc:
-        logger.error("%s Re-link it with Plaid Link update mode. (%s)", exc, exc.error)
-        SlackClient(Config).send_alert(f":key: {exc}")
-        raise SystemExit(1)
     except Exception as exc:
         logger.exception("Mercury failed")
         SlackClient(Config).send_alert(f":rotating_light: Mercury failed: {exc}")
