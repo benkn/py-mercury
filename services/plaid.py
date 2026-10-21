@@ -6,6 +6,19 @@ from plaid.model.item_remove_request import ItemRemoveRequest
 
 from util.logger import get_logger
 
+# Plaid error codes meaning the Item's credentials/OAuth consent must be refreshed via Link update mode.
+AUTH_EXPIRED_ERROR_CODES = {"ITEM_LOGIN_REQUIRED", "INVALID_ACCESS_TOKEN"}
+
+
+class PlaidError(Exception):
+    def __init__(self, message, error=None):
+        super().__init__(message)
+        self.error = error
+
+
+class PlaidAuthExpiredError(PlaidError):
+    pass
+
 
 class PlaidClient:
     def __init__(self, config):
@@ -65,9 +78,15 @@ class PlaidClient:
             return filteredTransactions
 
         except plaid.ApiException as e:
-            error_response = format_error(e)
-            self.logger.error("Failed to get transactions: %s", error_response.__dict__)
-            return error_response
+            error = format_error(e)["error"]
+            if error["error_code"] in AUTH_EXPIRED_ERROR_CODES:
+                raise PlaidAuthExpiredError(
+                    f"The auth for {account.name} has expired.", error
+                ) from None
+            raise PlaidError(
+                f"Failed to get transactions for {account.name}: {error['display_message']}",
+                error,
+            ) from None
 
     def remove_item(self, account):
         self.logger.info("Removing item for %s", account.name)
@@ -86,12 +105,16 @@ class PlaidClient:
 
 
 def format_error(e):
-    response = json.loads(e.body)
+    try:
+        response = json.loads(e.body)
+    except (TypeError, ValueError):
+        response = {}
     return {
         "error": {
             "status_code": e.status,
-            "display_message": response["error_message"],
-            "error_code": response["error_code"],
-            "error_type": response["error_type"],
+            "display_message": response.get("error_message", e.reason),
+            "error_code": response.get("error_code"),
+            "error_code_reason": response.get("error_code_reason"),
+            "error_type": response.get("error_type"),
         }
     }

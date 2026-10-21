@@ -4,7 +4,7 @@ from config.accounts import accounts
 from etl.decorate import decorate_transactions
 from etl.to_column_format import to_columns
 from services.google_sheets import GoogleSheetsClient
-from services.plaid import PlaidClient
+from services.plaid import PlaidAuthExpiredError, PlaidClient
 from services.obsidian import ObsidianClient
 from services.slack import SlackClient
 
@@ -76,6 +76,10 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+    except PlaidAuthExpiredError as exc:
+        logger.error("%s Re-link it with Plaid Link update mode. (%s)", exc, exc.error)
+        SlackClient(Config).send_alert(f":key: {exc}")
+        raise SystemExit(1)
     except Exception as exc:
         logger.exception("Mercury failed")
         SlackClient(Config).send_alert(f":rotating_light: Mercury failed: {exc}")
