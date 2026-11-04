@@ -24,7 +24,7 @@ def to_columns(transaction_list: dict) -> List[str]:
                     str(tx["date"]),
                     tx["name"],
                     tx["amount"],
-                    tx["checked"],
+                    tx.get("checked", ""),
                     tx["my_category"],
                     tx["my_sub_category"],
                     tx["account_owner"],
